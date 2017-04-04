@@ -891,7 +891,7 @@ proc liftParamType(c: PContext, procKind: TSymKind, genericParams: PNode,
       let lifted = liftingWalk(paramType.sons[i])
       if lifted != nil: paramType.sons[i] = lifted
 
-    if paramType.base.lastSon.kind == tyUserTypeClass:
+    if not paramType.base.sons.isNil and paramType.base.lastSon.kind == tyUserTypeClass:
       let expanded = instGenericContainer(c, info, paramType,
                                           allowMetaTypes = true)
       result = liftingWalk(expanded, true)
